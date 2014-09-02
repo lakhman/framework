@@ -5,11 +5,19 @@ The framework was built using the following article from the creator of Symfony,
 
 http://fabien.potencier.org/article/50/create-your-own-framework-on-top-of-the-symfony2-components-part-1
 
-You can run these from the command line using PHP's built in server using:
+You will have to install the composer dependencies after downloading the version.
+
+```
+composer install
+```
+
+then, You can run each version from the command line using PHP's built in server using:
 
 ```
 php -S localhost:9000 index.php
 ```
+
+---
 
 ## Part 1 - Introducing the Symfony2 Class Loader Component
 
