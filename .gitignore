@@ -1,20 +1,14 @@
 # Bootstrap
-app/bootstrap*
 
 # Symfony directories
 vendor/*
 */logs/*
 */cache/*
-web/uploads/*
-web/bundles/*
 
 # Configuration files
-app/config/parameters.ini
-app/config/parameters.yml
 
 # Composer
 composer.phar
 
 # PHPStorm workspace and tasks file
-**/.idea/workspace.xml
-**/.idea/tasks.xml
+**/.idea/*
