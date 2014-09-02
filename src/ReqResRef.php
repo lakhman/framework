@@ -1,6 +1,9 @@
-<?php // framework/index.php
+<?php // framework/ReqResRef.php
 
-require_once __DIR__.'/autoload.php';
+// This page is no longer used, it is used as a reference for the request and response objects
+exit;
+
+require_once __DIR__ . '/autoload.php';
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,14 +37,17 @@ $request = Request::createFromGlobals();
  * $request->getClientIp(); // Get the client ip
  *
  * You can also simulate a request:
- * $request = Request::create('/index.php?name=Fabien');
+ * $request = Request::create('/ReqResRef.php?name=Fabien');
  */
 
 // In this example we will get the name variable
 $input = $request->get('name', 'World');
 
 /**
+ * The Response Class
+ *
  * With the Response class, you can easily tweak the response:
+ *
  * $response = new Response();
  * $response->setContent('Hello world!');
  * $response->setStatusCode(200);

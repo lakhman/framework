@@ -9,7 +9,7 @@
 
 // View composer.json - "symfony/class-loader": "2.1.*"
 // we tell Composer that our project depends on the Symfony2 ClassLoader component, version 2.1.0 or later.
-require_once __DIR__.'/vendor/symfony/class-loader/Symfony/Component/ClassLoader/UniversalClassLoader.php';
+require_once __DIR__ . '/../vendor/symfony/class-loader/Symfony/Component/ClassLoader/UniversalClassLoader.php';
 
 use Symfony\Component\ClassLoader\UniversalClassLoader;
 
@@ -17,4 +17,4 @@ $loader = new UniversalClassLoader();
 $loader->register();
 
 // Register our namespace ("symfony/http-foundation": "2.1.*")
-$loader->registerNamespace('Symfony\\Component\\HttpFoundation', __DIR__.'/vendor/symfony/http-foundation');
+$loader->registerNamespace('Symfony\\Component\\HttpFoundation', __DIR__.'/../vendor/symfony/http-foundation');
