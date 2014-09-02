@@ -16,5 +16,6 @@ app/config/parameters.yml
 composer.phar
 
 # PHPStorm workspace and tasks file
+**/.idea/*
 **/.idea/workspace.xml
 **/.idea/tasks.xml
