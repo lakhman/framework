@@ -19,13 +19,13 @@ Here we setup the basics, we use Symfony's class loader to autoload our classes.
 
 ## Part 2 - Introducing the Symfony2 HTTP Foundation Component
 
-[Tag v2 - (6fc05490d88cac1fc46dbdefaedb65330301c153)](https://github.com/Lakhman/framework/commit/6fc05490d88cac1fc46dbdefaedb65330301c153)
+[Tag v2 - (6fc05490d88cac1fc46dbdefaedb65330301c153)](https://github.com/Lakhman/framework/releases/tag/v2)
 
 We learn about the HTTP Foundation Component, it allows us an OOP way to interface with super globals and also gives us a more secure way to get a clients IP address, amongst other things.
 
 ## Part 3 - The front controller pattern and some basic routing
 
-[Tag v3 - (xxx)](https://github.com/Lakhman/framework/commit/xxx)
+[Tag v3 - (f210f6c13243d655e4c818eeb311e4fab9f09aa3)](https://github.com/Lakhman/framework/releases/tag/v3)
 
 We clean up our directory structure and switch to a `front controller` pattern, and add some basic routing, we enhance on this in the next part to make use of Symfony's Routing Component.
 
