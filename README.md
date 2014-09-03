@@ -62,7 +62,7 @@ I have added a `src/ReqResRef.php` as a reference for the Request and Response o
 
 ## Part 4 - Introducing the Symfony2 Routing Component
 
-[Tag v4 - (e6d1508d320b7c9ec6dbae45a550784cedb8e313)](https://github.com/Lakhman/framework/releases/tag/v4)
+[Tag v4 - (a5bbff813a471f07ce555e34e42c01bdca897112)](https://github.com/Lakhman/framework/releases/tag/v4)
 
 In this part we learn about the Symfony2 Routing Component. First we refactor our `v3` code a little.
 
