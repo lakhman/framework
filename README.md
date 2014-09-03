@@ -88,7 +88,7 @@ In this part, we add our controllers to our routes using the `_controller` key i
 
 ## Part 6 - Introducing the Symfony2 HTTP Kernel
 
-[Tag v6 - (xxx)](https://github.com/Lakhman/framework/releases/tag/v6)
+[Tag v6 - (9bb3846a1d845b6f61d1f9c5f6f57ef309131ce3)](https://github.com/Lakhman/framework/releases/tag/v6)
 
 We learn about the HTTP Kernel, specifically it's controller resolver. A controller resolver knows how to determine the controller to execute and the arguments to pass to it, based on a Request object. It uses type hinting to pass arguments which allows us to pass the `Request $request` when required as well as the router arguments.
 
