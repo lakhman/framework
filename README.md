@@ -108,7 +108,7 @@ Currently the framework is not as organised as it could be, so we refactor the c
 
 ## Part 8 - PHPUnit - Testing our framework
 
-[Tag v8 - (xxx)](https://github.com/Lakhman/framework/releases/tag/v8)
+[Tag v8 - (8929b95eb07886bb1e673be95b0554467cfdff94)](https://github.com/Lakhman/framework/releases/tag/v8)
 
 In this lesson, we setup some basic PHPUnit testing. We test our `is_leap_year` function.
 
