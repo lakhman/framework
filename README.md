@@ -106,5 +106,15 @@ Currently the framework is not as organised as it could be, so we refactor the c
 
  - **src/app.php**: The application configuration/framework customization. (Currently hold routes)
 
+## Part 8 - PHPUnit - Testing our framework
 
+[Tag v8 - (xxx)](https://github.com/Lakhman/framework/releases/tag/v8)
+
+In this lesson, we setup some basic PHPUnit testing. We test our `is_leap_year` function.
+
+Run the following command to run all tests and place code coverage reports in the `cov` folder.
+
+```
+phpunit --coverage-html=cov
+```
 

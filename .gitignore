@@ -2,6 +2,7 @@
 
 # Symfony directories
 vendor/*
+cov/*
 */logs/*
 */cache/*
 
