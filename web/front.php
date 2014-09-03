@@ -1,7 +1,8 @@
 <?php
 // framework/front.php
 
-require_once __DIR__.'/../src/autoload.php';
+// Use composer's autoloader instead of the Symfony Class Loader (from part 1)
+require_once __DIR__.'/../vendor/autoload.php';
 
 // View the `src/ReqResRef.php` - Read the comments
 
@@ -22,27 +23,32 @@ use Symfony\Component\HttpFoundation\Response;
 
 // Create our Request & Response Objects object (View ReqResRef.php)
 $request = Request::createFromGlobals();
-$response = new Response();
 
 // $map associates URL paths with their corresponding PHP script paths.
 $map = array(
-    '/hello' => __DIR__.'/../src/pages/hello.php',
-    '/bye'   => __DIR__.'/../src/pages/bye.php',
+    '/hello' => 'hello',
+    '/bye'   => 'bye',
 );
 
 // Get our path and check its in our $map
 $path = $request->getPathInfo();
 
 if (isset($map[$path])) {
+    // Start output buffering
     ob_start();
-    include $map[$path];
-    $response->setContent(ob_get_clean()); // Set out
+
+    // Extract all our query params, so in templates we can now just use `$name` for `$_GET['name']`
+    extract($request->query->all(), EXTR_SKIP);
+
+    // Include our template file
+    include sprintf(__DIR__.'/../src/pages/%s.php', $map[$path]);
+
+    // Set our Response
+    $response = new Response(ob_get_clean());
 } else {
     // if the client asks for a path that is not defined in the URL map, we return a custom 404 page;
-    $response->setStatusCode(404);
-    $response->setContent('Not Found');
+    $response = new Response('Not Found', 404);
 }
-
 
 /**
  * TODO: Important: Call the prepare method : (We do this in a later part)

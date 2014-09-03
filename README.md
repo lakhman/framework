@@ -53,3 +53,11 @@ http://localhost:9000/front.php/bye?name=Fabien
 ```
 
 I have added a `src/ReqResRef.php` as a reference for the Request and Response object, read the comments.
+
+## Part 4 - Introducing the Symfony2 Routing Component
+
+[Tag v4 - (xxx)](https://github.com/Lakhman/framework/releases/tag/v4)
+
+In this part we learn about the Symfony2 Routing Component. First we refactor our `v3` code a little.
+
+[xxx](url)
