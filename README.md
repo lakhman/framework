@@ -79,3 +79,17 @@ Be sure to checkout `src/pages/hello.php`, It shows how you can generate routes 
 Also moved the commented RequestResponseReference (ReqResRef.php) into a wiki here:
 
 [https://github.com/Lakhman/framework/wiki/Request-Response-Info](https://github.com/Lakhman/framework/wiki/Request-Response-Info)
+
+## Part 5 - Matching Routes to Controllers
+
+[Tag v5 - (db8c6a4240513a45066caffa48929b1561fe4f1c)](https://github.com/Lakhman/framework/releases/tag/v5)
+
+In this part, we add our controllers to our routes using the `_controller` key in `src/app.php`. We then use that to call the controller and action we want, we can use the new `render_template` function in `front.php` within the controller to render our template and return a response. We can then choose to alter that response to send it.
+
+## Part 6 - Introducing the Symfony2 HTTP Kernel
+
+[Tag v6 - (xxx)](https://github.com/Lakhman/framework/releases/tag/v6)
+
+We learn about the HTTP Kernel, specifically it's controller resolver. A controller resolver knows how to determine the controller to execute and the arguments to pass to it, based on a Request object. It uses type hinting to pass arguments which allows us to pass the `Request $request` when required as well as the router arguments.
+
+

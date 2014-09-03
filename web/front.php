@@ -9,6 +9,7 @@ require_once __DIR__.'/../vendor/autoload.php';
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing;
+use Symfony\Component\HttpKernel;
 
 /**
  * Render template function, we can use this within our controllers to render our template
@@ -56,6 +57,7 @@ $routes = include __DIR__.'/../src/app.php';
 $context = new Routing\RequestContext();
 $context->fromRequest($request);
 $matcher = new Routing\Matcher\UrlMatcher($routes, $context);
+$resolver = new HttpKernel\Controller\ControllerResolver();
 
 // For Performance, we can dump our own `URLMatcher` in PHP or Apache Rewrite Rules!
 //$dumper = new Routing\Matcher\Dumper\PhpMatcherDumper($routes);
@@ -70,8 +72,13 @@ try {
     // Store our route info into our Request $request object
     $request->attributes->add($matcher->match($request->getPathInfo()));
 
+    $controller = $resolver->getController($request);
+    $arguments = $resolver->getArguments($request, $controller);
+
+    $response = call_user_func_array($controller, $arguments);
+
     // Get our `_controller` (defined in the route `app.php`), this can be any valid callback to render our template
-    $response = call_user_func($request->attributes->get('_controller'), $request);
+    //$response = call_user_func($request->attributes->get('_controller'), $request);
 
 } catch (Routing\Exception\ResourceNotFoundException $e) {
 
@@ -81,7 +88,7 @@ try {
 } catch (Exception $e) {
 
     // Throw a 500 if some other error
-    $response = new Response('An error occurred', 500);
+    $response = new Response($e->getMessage(), 500);
 
 }
 
