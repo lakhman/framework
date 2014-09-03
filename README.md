@@ -94,7 +94,7 @@ We learn about the HTTP Kernel, specifically it's controller resolver. A control
 
 ## Part 7 - Making our framework more reusable
 
-[Tag v7 - ()](https://github.com/Lakhman/framework/releases/tag/v7)
+[Tag v7 - (50586ec3a897f0066157b51d2494d80c12399d9a)](https://github.com/Lakhman/framework/releases/tag/v7)
 
 Currently the framework is not as organised as it could be, so we refactor the code to split things up and make the framework more reusable. Now things are starting to look a little more familiar.
 
