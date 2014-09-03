@@ -92,4 +92,19 @@ In this part, we add our controllers to our routes using the `_controller` key i
 
 We learn about the HTTP Kernel, specifically it's controller resolver. A controller resolver knows how to determine the controller to execute and the arguments to pass to it, based on a Request object. It uses type hinting to pass arguments which allows us to pass the `Request $request` when required as well as the router arguments.
 
+## Part 7 - Making our framework more reusable
+
+[Tag v7 - ()](https://github.com/Lakhman/framework/releases/tag/v7)
+
+Currently the framework is not as organised as it could be, so we refactor the code to split things up and make the framework more reusable. Now things are starting to look a little more familiar.
+
+ - **web/front.php**: The front controller; the only exposed PHP code that makes the interface with the client (it gets the Request and sends the Response) and provides the boiler-plate code to initialize the framework and our application;
+
+ - **src/Simplex**: The reusable framework code that abstracts the handling of incoming Requests (by the way, it makes your controllers/templates easily testable -- more about that later on);
+
+ - **src/Calendar**: Our application specific code (the controllers and the model); A Calendar app in this example.
+
+ - **src/app.php**: The application configuration/framework customization. (Currently hold routes)
+
+
 

@@ -59,42 +59,9 @@ $context->fromRequest($request);
 $matcher = new Routing\Matcher\UrlMatcher($routes, $context);
 $resolver = new HttpKernel\Controller\ControllerResolver();
 
-// For Performance, we can dump our own `URLMatcher` in PHP or Apache Rewrite Rules!
-//$dumper = new Routing\Matcher\Dumper\PhpMatcherDumper($routes);
-//$dumper = new Routing\Matcher\Dumper\ApacheMatcherDumper($routes);
-//echo $dumper->dump();exit;
-
-// throws a Symfony\Component\Routing\Exception\ResourceNotFoundException
-//print_r($matcher->match('/some-unknown-404-page')); exit;
-
-try {
-
-    // Store our route info into our Request $request object
-    $request->attributes->add($matcher->match($request->getPathInfo()));
-
-    $controller = $resolver->getController($request);
-    $arguments = $resolver->getArguments($request, $controller);
-
-    $response = call_user_func_array($controller, $arguments);
-
-    // Get our `_controller` (defined in the route `app.php`), this can be any valid callback to render our template
-    //$response = call_user_func($request->attributes->get('_controller'), $request);
-
-} catch (Routing\Exception\ResourceNotFoundException $e) {
-
-    // If the client asks for a path that is not defined in the route, the route will throw a NotFoundException
-    $response = new Response('Not Found', 404);
-
-} catch (Exception $e) {
-
-    // Throw a 500 if some other error
-    $response = new Response($e->getMessage(), 500);
-
-}
-
-/**
- * TODO: Important: Call the prepare method : (We do this in a later part)
- */
+// Load our framework
+$framework = new Simplex\Framework($matcher, $resolver);
+$response = $framework->handle($request);
 
 // Send our Response
 $response->send();
