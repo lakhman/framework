@@ -79,5 +79,3 @@ Be sure to checkout `src/pages/hello.php`, It shows how you can generate routes 
 Also moved the commented RequestResponseReference (ReqResRef.php) into a wiki here:
 
 [https://github.com/Lakhman/framework/wiki/Request-Response-Info](https://github.com/Lakhman/framework/wiki/Request-Response-Info)
-
-
