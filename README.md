@@ -118,3 +118,62 @@ Run the following command to run all tests and place code coverage reports in th
 phpunit --coverage-html=cov
 ```
 
+## Part 9 - Introducting the Event Dispatcher & Subscribers
+
+[Tag v9 - ()](https://github.com/Lakhman/framework/releases/tag/v9)
+
+
+In this section, we learn about the Event Dispatcher, Listeners & Subscribers (which are kind of the same thing). 
+
+The Symfony2 EventDispatcher Component implements a lightweight version of the Observer pattern.
+
+Basically, we create a `$dispatcher`, add our Subscribers `(GoogleSubscriber)`, pass it through to our `Simplex\Framework`, where we dispatch the events. If the event fired is name `response`, the `GoogleSubscriber:onResponse` will fire (as it subscribes to the `reponse` event - through the implemented `getSubscribedEvents` method.).
+
+```
+use Symfony\Component\EventDispatcher\EventDispatcher;
+
+// Event Dispatcher
+$dispatcher = new EventDispatcher();
+
+// A subscriber knows about all the events it is interested in and
+// pass this information to the dispatcher via the `getSubscribedEvents()` method within the Listener.
+$dispatcher->addSubscriber(new Simplex\GoogleSubscriber());
+
+$framework = new Simplex\Framework($dispatcher, $matcher, $resolver);
+```
+
+In our `Framework` we accept it, and `dispatch` an event named `response` before returning the response.
+```
+// dispatch a response event
+$this->dispatcher->dispatch('response', new ResponseEvent($response, $request));
+```
+The `GoogleSubscriber` subscribed to this event and does something with the response.
+
+```
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+
+class GoogleSubscriber implements EventSubscriberInterface
+{
+    /**
+     * Run this code and manipulate the request
+     */
+    public function onResponse(ResponseEvent $event)
+    {
+        $response = $event->getResponse();
+        $response->setContent($response->getContent().' : GA CODE');
+    }
+
+    /**
+     * View the `EventSubscriberInterface` docs
+     */
+    public static function getSubscribedEvents()
+    {
+        // return array('response' => array('onResponse', -255)); // Priorities
+        return array('response' => 'onResponse');
+    }
+}
+```
+
+Also, we learned about priorities.
+
+> To tell the dispatcher to run a listener early, change the priority to a positive number; negative numbers can be used for low priority listeners. Here, we want the GoogleSubscriber listener to be executed last, so change the priority to -255

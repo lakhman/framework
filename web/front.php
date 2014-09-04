@@ -1,6 +1,8 @@
 <?php
 // framework/front.php
 
+// Front controller
+
 // Composer Autoloader
 require_once __DIR__.'/../vendor/autoload.php';
 
@@ -8,10 +10,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing;
 use Symfony\Component\HttpKernel;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 
-/**
- * Exposing a single PHP script to the end user is a design pattern called the "front controller".
- */
 
 // Create our Request & Response Objects object (View ReqResRef.php)
 $request = Request::createFromGlobals();
@@ -25,8 +25,16 @@ $context->fromRequest($request);
 $matcher = new Routing\Matcher\UrlMatcher($routes, $context);
 $resolver = new HttpKernel\Controller\ControllerResolver();
 
+// Event Dispatcher
+$dispatcher = new EventDispatcher();
+
+// A subscriber knows about all the events it is interested in and
+// pass this information to the dispatcher via the `getSubscribedEvents()` method within the Listener.
+$dispatcher->addSubscriber(new Simplex\ContentLengthSubscriber());
+$dispatcher->addSubscriber(new Simplex\GoogleSubscriber());
+
 // Load our framework
-$framework = new Simplex\Framework($matcher, $resolver);
+$framework = new Simplex\Framework($dispatcher, $matcher, $resolver);
 $response = $framework->handle($request);
 
 // Send our Response
