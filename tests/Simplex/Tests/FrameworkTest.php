@@ -7,10 +7,33 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Symfony\Component\HttpKernel\Controller\ControllerResolver;
+use Symfony\Component\Routing;
+use Symfony\Component\HttpKernel;
 
 
 class FrameworkTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * A basic example of testing the live application no mocks
+     */
+    public function testControllerLeapYear()
+    {
+        $request = Request::create( '/is_leap_year/2016', 'GET' );
+
+        $context = new Routing\RequestContext();
+        $context->fromRequest($request);
+        $routes = include __DIR__.'../../../../src/app.php';
+        $matcher = new Routing\Matcher\UrlMatcher($routes, $context);
+        $resolver = new HttpKernel\Controller\ControllerResolver();
+
+        $framework = new Framework($matcher, $resolver);
+
+        $response = $framework->handle($request);
+
+        $this->assertEquals(200, $response->getStatusCode());
+        // print_r($response->getContent()); // "Yep, this is a leap year!"
+    }
+
     public function testControllerResponse()
     {
         $matcher = $this->getMock('Symfony\Component\Routing\Matcher\UrlMatcherInterface');
