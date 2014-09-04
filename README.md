@@ -120,7 +120,7 @@ phpunit --coverage-html=cov
 
 ## Part 9 - Introducting the Event Dispatcher & Subscribers
 
-[Tag v9 - ()](https://github.com/Lakhman/framework/releases/tag/v9)
+[Tag v9 - (60366439c336d35b9735b73200d63e8156cdf146)](https://github.com/Lakhman/framework/releases/tag/v9)
 
 
 In this section, we learn about the Event Dispatcher, Listeners & Subscribers (which are kind of the same thing). 
