@@ -5,14 +5,15 @@ namespace Simplex;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\HttpKernel;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
 use Symfony\Component\HttpKernel\Controller\ControllerResolverInterface;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
-class Framework implements HttpKernelInterface
+class Framework extends HttpKernel
 {
-    protected $matcher;
+    /*protected $matcher;
     protected $resolver;
     protected $dispatcher;
 
@@ -23,7 +24,7 @@ class Framework implements HttpKernelInterface
      * @param \Symfony\Component\Routing\Matcher\UrlMatcherInterface               $matcher
      * @param \Symfony\Component\HttpKernel\Controller\ControllerResolverInterface $resolver
      */
-    public function __construct(EventDispatcher $dispatcher, UrlMatcherInterface $matcher, ControllerResolverInterface $resolver)
+    /*public function __construct(EventDispatcher $dispatcher, UrlMatcherInterface $matcher, ControllerResolverInterface $resolver)
     {
         $this->matcher = $matcher;
         $this->resolver = $resolver;
@@ -41,7 +42,7 @@ class Framework implements HttpKernelInterface
      *
      * @return mixed|\Symfony\Component\HttpFoundation\Response
      */
-    public function handle(Request $request, $type = HttpKernelInterface::MASTER_REQUEST, $catch = true)
+    /*public function handle(Request $request, $type = HttpKernelInterface::MASTER_REQUEST, $catch = true)
     {
         try {
             $request->attributes->add($this->matcher->match($request->getPathInfo()));
@@ -61,5 +62,5 @@ class Framework implements HttpKernelInterface
         $this->dispatcher->dispatch('response', new ResponseEvent($response, $request));
 
         return $response;
-    }
+    }*/
 }
