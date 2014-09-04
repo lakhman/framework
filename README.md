@@ -177,3 +177,67 @@ class GoogleSubscriber implements EventSubscriberInterface
 Also, we learned about priorities.
 
 > To tell the dispatcher to run a listener early, change the priority to a positive number; negative numbers can be used for low priority listeners. Here, we want the GoogleSubscriber listener to be executed last, so change the priority to -255
+
+## Part 10 - The HttpKernel HttpCache
+
+[Tag v10 - ()](https://github.com/Lakhman/framework/releases/tag/v10)
+
+By implementing the `HttpKernelInterface`, we get all the caching functionality that comes with the `HttpKernel`. The gist of it is as follows.
+
+```php
+// Load our framework
+$framework = new Simplex\Framework($dispatcher, $matcher, $resolver);
+$response = $framework->handle($request);
+
+// Load our framework with Caching
+$framework = new Simplex\Framework($dispatcher, $matcher, $resolver);
+$framework = new HttpCache($framework, new Store(__DIR__.'/../cache')); // Cache & Store
+//$framework = new HttpCache($framework, new Store(__DIR__.'/../cache'), null, ['debug' => true]); // shows extra headers
+$response = $framework->handle($request);
+```
+
+In our `LeapYearController` we can set all the cache actions for that page.
+
+```php
+class LeapYearController
+{
+    public function indexAction(Request $request, $year)
+    {
+        $leapyear = new LeapYear();
+        if ($leapyear->isLeapYear($year)) {
+            $response = new Response('Yep, this is a leap year!' . rand());
+        } else {
+            $response = new Response('Nope, this is not a leap year.' . rand());
+        }
+
+        // Set a TTL of 10 seconds
+        $response->setTtl(10);
+
+        return $response;
+    }
+}
+```
+
+You can also set multiple options in one go using:
+
+```php
+$date = date_create_from_format('', '2005-10-15 10:00:00');
+ 
+$response->setCache(array(
+    'public'        => true,
+    'etag'          => 'abcde',
+    'last_modified' => $date,
+    'max_age'       => 10,
+    's_maxage'      => 10,
+));
+ 
+// it is equivalent to the following code
+$response->setPublic();
+$response->setEtag('abcde');
+$response->setLastModified($date);
+$response->setMaxAge(10);
+$response->setSharedMaxAge(10);
+```
+
+You can see how easy the `HttpKernel` and `HttpCache` make caching for us. There's alot more the article covers such as edge side includes and etags so refer to that to learn more.
+
