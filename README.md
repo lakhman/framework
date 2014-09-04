@@ -241,3 +241,68 @@ $response->setSharedMaxAge(10);
 
 You can see how easy the `HttpKernel` and `HttpCache` make caching for us. There's alot more the article covers such as edge side includes and etags so refer to that to learn more.
 
+## Part 11 - Handling Errors using Event Subscribers
+
+[Tag v11 - (ab072e6153707dc16a247762f022fc2217457836)](https://github.com/Lakhman/framework/releases/tag/v11)
+
+In this part, we learn about handling errors and a little more about subscribing to events emitted by the kernel. 
+
+#### Extending HttpKernel
+First we refactor our code by extending the `HttpKernel`, the kernel provides us the same method's we wrote previously, so we can now empty the `Framework` class (all the functionality is inherited through `HttpKernel`).
+
+#### RouterListener
+Now, we'll use the `RouterListener` to handle our routing, it will set the matched route, controller and data into the request parameters for us.
+
+```php
+// RouterListener is an implementation of the same logic we had in our framework:
+// it matches the incoming request and populates the request attributes with route parameters.
+$dispatcher->addSubscriber(new HttpKernel\EventListener\RouterListener($matcher));
+```
+
+#### ExceptionListener
+We subscribe to the `HttpKernel\EventListener\ExceptionListener` with our own controller and action `Calendar\\Controller\\ErrorController::exceptionAction`.
+
+```php
+// Add our error controller handler
+$dispatcher = new EventDispatcher();
+$dispatcher->addSubscriber(new HttpKernel\EventListener\ExceptionListener('Calendar\\Controller\\ErrorController::exceptionAction'));
+```
+
+#### ResponseListener
+We also learn about the `ResponseListener` event, which `prepares` our response before sending it to the client.
+
+```php
+// In part 2, we have talked about the Response::prepare() method, which ensures that a Response is compliant
+// with the HTTP specification. It is probably a good idea to always call it just before sending the Response
+// to the client; that's what the ResponseListener does
+$dispatcher->addSubscriber(new HttpKernel\EventListener\ResponseListener('UTF-8'));
+```
+
+#### Creating our own subscriber
+
+Finally, we create our own subscriber and listen for the `kernel.view` event. If the `getControllerResult` returns a string, we create a new `Response` to return.
+
+```php
+// Our custom response listener - if a string is returned, convert it to an object
+$dispatcher->addSubscriber(new Simplex\StringResponseListener());
+
+// Our subscribed class
+class StringResponseListener implements EventSubscriberInterface
+{
+    public function onView(GetResponseForControllerResultEvent $event)
+    {
+        $response = $event->getControllerResult();
+
+        if (is_string($response)) {
+            $event->setResponse(new Response($response));
+        }
+    }
+
+    public static function getSubscribedEvents()
+    {
+        return array('kernel.view' => 'onView');
+    }
+}
+```
+
+After this article, you should have a good grasp on how the `$dispatcher` and event system work.
