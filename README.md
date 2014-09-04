@@ -129,7 +129,7 @@ The Symfony2 EventDispatcher Component implements a lightweight version of the O
 
 Basically, we create a `$dispatcher`, add our Subscribers `(GoogleSubscriber)`, pass it through to our `Simplex\Framework`, where we dispatch the events. If the event fired is name `response`, the `GoogleSubscriber:onResponse` will fire (as it subscribes to the `reponse` event - through the implemented `getSubscribedEvents` method.).
 
-```
+```php
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
 // Event Dispatcher
@@ -143,13 +143,13 @@ $framework = new Simplex\Framework($dispatcher, $matcher, $resolver);
 ```
 
 In our `Framework` we accept it, and `dispatch` an event named `response` before returning the response.
-```
+```php
 // dispatch a response event
 $this->dispatcher->dispatch('response', new ResponseEvent($response, $request));
 ```
 The `GoogleSubscriber` subscribed to this event and does something with the response.
 
-```
+```php
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class GoogleSubscriber implements EventSubscriberInterface
