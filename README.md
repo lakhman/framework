@@ -178,9 +178,9 @@ Also, we learned about priorities.
 
 > To tell the dispatcher to run a listener early, change the priority to a positive number; negative numbers can be used for low priority listeners. Here, we want the GoogleSubscriber listener to be executed last, so change the priority to -255
 
-## Part 10 - The HttpKernel HttpCache
+## Part 10 - The HttpKernel and HttpCache
 
-[Tag v10 - ()](https://github.com/Lakhman/framework/releases/tag/v10)
+[Tag v10 - (24873cd2104f85a80e5687138f655ea79d6ff293)](https://github.com/Lakhman/framework/releases/tag/v10)
 
 By implementing the `HttpKernelInterface`, we get all the caching functionality that comes with the `HttpKernel`. The gist of it is as follows.
 
