@@ -306,3 +306,9 @@ class StringResponseListener implements EventSubscriberInterface
 ```
 
 After this article, you should have a good grasp on how the `$dispatcher` and event system work.
+
+## Part 12 - Introducing Dependency Injection (Service Container)
+
+[Tag v12 - ()](https://github.com/Lakhman/framework/releases/tag/v12)
+
+In this final article, we setup our `DIC` (Dependency Injection Container). We empty our `Framework` class as everything is now handled by the `container`.
